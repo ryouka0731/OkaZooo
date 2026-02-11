@@ -1,10 +1,7 @@
 const CloseButtons = () => {
   return (
     <div className="float-right h-full flex leading-[30px] dark:bg-main-dark no-drag gap-1">
-      <button
-        onClick={() => window?.electron?.minimize()}
-        className="tileStyleButton"
-      >
+      <button onClick={() => window?.electron?.minimize()} className="tileStyleButton">
         <svg
           stroke="currentColor"
           fill="currentColor"
@@ -17,10 +14,7 @@ const CloseButtons = () => {
           <path d="M15 8H1V7h14v1z"></path>
         </svg>
       </button>
-      <button
-        onClick={() => window?.electron?.maximize()}
-        className="tileStyleButton"
-      >
+      <button onClick={() => window?.electron?.maximize()} className="tileStyleButton">
         <svg
           stroke="currentColor"
           fill="currentColor"
@@ -44,7 +38,7 @@ const CloseButtons = () => {
         <span className="text-2xl font-extralight mb-1.5">&times;</span>
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default CloseButtons;
+export default CloseButtons

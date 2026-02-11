@@ -18,30 +18,30 @@ describe('CloseButtons コンポーネント', () => {
   it('最小化ボタンをクリックすると minimize が呼ばれること', async () => {
     const user = userEvent.setup()
     render(<CloseButtons />)
-    
+
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[0])
-    
+
     expect(window.electron.minimize).toHaveBeenCalled()
   })
 
   it('最大化ボタンをクリックすると maximize が呼ばれること', async () => {
     const user = userEvent.setup()
     render(<CloseButtons />)
-    
+
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[1])
-    
+
     expect(window.electron.maximize).toHaveBeenCalled()
   })
 
   it('閉じるボタンをクリックすると close が呼ばれること', async () => {
     const user = userEvent.setup()
     render(<CloseButtons />)
-    
+
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[2])
-    
+
     expect(window.electron.close).toHaveBeenCalled()
   })
 
