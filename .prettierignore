@@ -1,0 +1,9 @@
+node_modules
+dist
+app
+.storybook
+coverage
+bun.lockb
+*.config.js
+*.config.mjs
+*.config.ts
