@@ -1,4 +1,5 @@
 [![CI](https://github.com/RyokaNAKAI/OkaZooo2/actions/workflows/ci.yml/badge.svg)](https://github.com/RyokaNAKAI/OkaZooo2/actions/workflows/ci.yml)
+
 # Electron React TS Vite Tailwind ボイラープレート
 
 このプロジェクトは、**Electron（エレクトロン）**、**React（リアクト）**、**TypeScript（タイプスクリプト）** を用いたデスクトップアプリケーション開発のための **ボイラープレート** です。**Vite（ヴィート）** による高速バンドル、**Tailwind CSS（テイルウィンドCSS）** によるスタイリング、**ESLint（イーエスリント）** によるコード品質維持を特徴としています。
