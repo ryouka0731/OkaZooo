@@ -1,37 +1,38 @@
-# Electron React TS Vite Tailwind Boilerplate
+[![CI](https://github.com/yourname/yourrepo/actions/workflows/ci.yml/badge.svg)](https://github.com/yourname/yourrepo/actions/workflows/ci.yml)
+# Electron React TS Vite Tailwind ボイラープレート
 
-This project is a **boilerplate** for creating desktop applications using **Electron**, **React**, and **TypeScript**. It leverages **Vite** for fast bundling, **Tailwind CSS** for styling, and **ESLint** to maintain code quality.
-
----
-
-## Features
-
-- **Electron**: Build cross-platform desktop applications.
-- **React & TypeScript**: Develop robust, strongly-typed user interfaces.
-- **Vite**: Super-fast development server and bundler.
-- **Tailwind CSS**: Utility-first CSS framework for modern, responsive design.
-- **ESLint**: Enforces clean and consistent code.
+このプロジェクトは、**Electron（エレクトロン）**、**React（リアクト）**、**TypeScript（タイプスクリプト）** を用いたデスクトップアプリケーション開発のための **ボイラープレート** です。**Vite（ヴィート）** による高速バンドル、**Tailwind CSS（テイルウィンドCSS）** によるスタイリング、**ESLint（イーエスリント）** によるコード品質維持を特徴としています。
 
 ---
 
-## Requirements
+## 主な特徴
 
-- **Node.js** (version 20 or higher)
-- **bun**
+- **Electron**：クロスプラットフォームなデスクトップアプリを構築できます。
+- **React & TypeScript**：堅牢で型安全なユーザーインターフェースを開発できます。
+- **Vite**：超高速な開発サーバー＆バンドラー。
+- **Tailwind CSS**：モダンでレスポンシブなデザインのためのユーティリティファーストCSSフレームワーク。
+- **ESLint**：クリーンで一貫性のあるコードを強制します。
 
 ---
 
-## Installation
+## 必要要件
 
-1. **Install dependencies:**
+- **Node.js**（バージョン20以上）
+- **bun（バン）**
 
-Using bun:
+---
+
+## インストール方法
+
+1. **依存パッケージのインストール：**
+
+bunを使う場合：
 
 ```bash
 bun install
 ```
 
-Or using yarn:
+yarnを使う場合：
 
 ```bash
 yarn install
@@ -39,43 +40,43 @@ yarn install
 
 ---
 
-## Usage
+## 使い方
 
-### Development Mode
+### 開発モード
 
-Start the application in development mode (with hot reloading):
+開発モード（ホットリロード対応）でアプリを起動します：
 
 ```bash
 bun run dev
 ```
 
-This command launches the **Vite** development server for the renderer process and opens the Electron window.
+このコマンドで **Vite** の開発サーバー（レンダラープロセス用）が起動し、Electronウィンドウが開きます。
 
-### Build for Production
+### 本番ビルド
 
-Generate optimized files for production:
+本番用に最適化されたファイルを生成します：
 
 ```bash
 bun run build
 ```
 
-### Packaging
+### パッケージング
 
-If you use a packaging tool (e.g., Electron Builder), run:
+パッケージングツール（例：Electron Builder）を利用する場合：
 
 ```bash
 bun run package
 ```
 
-### Linting
+### リンティング（Lint）
 
-Check your code with ESLint:
+ESLintでコードをチェックします：
 
 ```bash
 bun run lint
 ```
 
-To automatically fix some of the detected issues (when possible):
+自動修正可能な問題を修正する場合：
 
 ```bash
 bun run lint -- --fix
@@ -83,9 +84,9 @@ bun run lint -- --fix
 
 ---
 
-## Project Structure
+## プロジェクト構成
 
-Below is an overview of the folders and files in this boilerplate:
+このボイラープレートの主なフォルダ・ファイル構成は以下の通りです：
 
 ```plaintext
 .
@@ -122,33 +123,60 @@ Below is an overview of the folders and files in this boilerplate:
 └── vite.config.js
 ```
 
-- **main/**: Contains Electron’s main process code (`index.ts`, `preload.ts`, etc.).
-- **src/**: Contains React and TypeScript code for the renderer process.
-- **public/**: Static files to be served directly.
-- **.env.example**: Example environment variables.
-- **electron-builder.config.js**: Configuration for packaging your app (if using Electron Builder).
-- **esbuild.config.mjs**, **eslint.config.js**, **postcss.config.cjs**, **vite.config.js**: Various configuration files.
-- **package.json**: Scripts and dependencies.
-- **readme.md**: This file.
+- **main/**：Electronのメインプロセス用コード（`index.ts`, `preload.ts` など）
+- **src/**：レンダラープロセス用のReact & TypeScriptコード
+- **public/**：静的ファイル
+- **.env.example**：環境変数のサンプル
+- **electron-builder.config.js**：アプリのパッケージング設定（Electron Builder利用時）
+- **esbuild.config.mjs**, **eslint.config.js**, **postcss.config.cjs**, **vite.config.js**：各種設定ファイル
+- **package.json**：スクリプトや依存関係
+- **readme.md**：このファイル
 
 ---
 
-## ESLint Configuration
+## ESLint 設定
 
-This project includes an **ESLint** configuration to keep your code consistent and to prevent common errors. You can modify the rules in `eslint.config.js` according to your needs.
-
----
-
-## Contributing
-
-Contributions are welcome! If you have any suggestions or find any bugs, please open an issue or submit a pull request.
+本プロジェクトには **ESLint** 設定が含まれており、コードの一貫性や一般的なエラー防止に役立ちます。ルールは `eslint.config.js` で自由に変更できます。
 
 ---
 
-## License
+## コントリビューション
 
-This project is distributed under the [MIT License](./LICENSE).
+コントリビューション（貢献）は大歓迎です！ご提案やバグ報告があれば、Issueの作成やプルリクエストをお送りください。
 
 ---
 
-Enjoy building your Electron + React application!
+## ライセンス
+
+このプロジェクトは [MITライセンス](./LICENSE) のもとで公開されています。
+
+---
+
+Electron + React アプリ開発をお楽しみください！
+
+---
+
+## 開発環境・品質管理ツール
+
+- **Prettier**: コード自動整形
+  - `bun run format` で全ファイル整形
+  - `bun run format:check` でフォーマット検証
+- **ESLint**: 静的解析・コード品質チェック
+  - `bun run lint` で全ファイル検証
+- **Vitest**: Vite ネイティブテストフレームワーク
+  - `bun test` でテスト実行
+  - `bun run test:ui` でUIダッシュボード
+  - `bun run test:coverage` でカバレッジレポート
+- **@testing-library/react**: React UI テスト
+  - `src/__tests__/components/` 配下にサンプルテストあり
+- **husky + lint-staged**: Pre-commit hooks
+  - コミット前に自動で ESLint/Prettier を実行
+- **Storybook**: コンポーネントカタログ
+  - `bun run storybook` でポート6006に起動
+
+## 開発フロー例
+
+1. `bun dev` でアプリ開発サーバー起動
+2. `bun run storybook` でUIカタログ確認
+3. `bun test` でテスト実行
+4. `git commit` 時に自動で品質チェック
