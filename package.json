@@ -7,7 +7,7 @@
     "version": "0.0.0",
     "main": "electron/electron.ts",
     "scripts": {
-        "dev": "vite",
+        "dev": "concurrently \"vite\" \"bun ./esbuild.config.mjs --watch\"",
         "build:electron": "bun ./esbuild.config.mjs",
         "build:renderer": "vite build",
         "build:dev:electron": "bun ./esbuild.config.mjs --watch",

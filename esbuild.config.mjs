@@ -13,8 +13,9 @@ build({
   external: [
     // 'next',
     'electron', // Don't bundle Electron, it's provided by Electron itself
-    // 'electron-updater', // Don't bundle `electron-updater` as it dynamically loads native modules
-    // // 'electron-serve',
+    'electron-updater', // Don't bundle `electron-updater` as it dynamically loads native modules
+    'electron-serve', // Don't bundle electron-serve
+    'electron-log', // Don't bundle electron-log
     // '@sentry/electron',
     // 'app-root-path',
     'node:path',
