@@ -1,6 +1,6 @@
 const CloseButtons = () => {
   return (
-    <div className="float-right h-full flex leading-[30px] dark:bg-main-dark no-drag gap-1">
+    <div className="float-right h-full flex leading-[30px] dark:bg-main-dark bg-white no-drag gap-1 rounded-xl shadow-md border border-main-dark/10">
       <button onClick={() => window?.electron?.minimize()} className="tileStyleButton">
         <svg
           stroke="currentColor"

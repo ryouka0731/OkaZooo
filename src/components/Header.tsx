@@ -17,7 +17,7 @@ const Header = () => {
   }, [])
 
   return (
-    <nav ref={header} className="h-11 dark:bg-main-dark bg-[#f7f7f7] z-10 drag p-1">
+    <nav ref={header} className="h-11 dark:bg-main-dark bg-white z-10 drag p-1 rounded-t-2xl shadow-md border-b border-main-dark/10">
       {window.electron && <CloseButtons />}
     </nav>
   )

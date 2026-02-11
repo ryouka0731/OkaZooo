@@ -5,8 +5,7 @@
 
 /* Glassmorphism & ホットピンクテーマ */
 body {
-  background: #000;
-  color: #fff;
+  @apply bg-black text-white font-[roboto];
 }
 
 .glass {
