@@ -155,58 +155,69 @@ function VideoSlide({ video, index }: { video: VideoData; index: number }) {
 
   return (
     <div
-      className="flex flex-col items-center p-4 md:p-6 lg:p-8 video-slide-outer"
-      style={{ width: '100%', height: '100%', overflow: 'hidden', boxSizing: 'border-box', display: 'block' }}
+      className="flex flex-col items-center p-4 md:p-6 lg:p-8 video-slide-outer justify-center"
+      style={{ width: '100%', height: '100%', overflow: 'hidden', boxSizing: 'border-box', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
-      <h2 className="text-lg md:text-xl lg:text-2xl font-bold mb-2 text-center">{video.title}</h2>
-      <div className="text-sm md:text-base text-gray-300 mb-2 text-center">{video.actress}</div>
-      <img src={video.poster_url} alt={video.title + ' poster'} className="mb-2 max-h-48 rounded shadow" />
-      {/*
-        DMM litevideoページの埋め込み例。
-        <iframe src="https://www.dmm.co.jp/litevideo/-/part/=/cid=..." width="100%" height="360" allowFullScreen></iframe>
-        ※DMM側がX-Frame-OptionsやCSPで埋め込みを禁止している場合、
-          ブラウザでエラーやblank表示になる可能性があります。
-      */}
-      {/* DMM litevideo のURLの場合は <iframe> で埋め込み、それ以外は <a> でリンク表示 */}
-      {video.video_url.endsWith('.mp4') ? (
-        <video
-          src={video.video_url}
-          crossOrigin="anonymous"
-          controls
-          autoPlay
-          muted
-          playsInline
-          ref={videoRef}
-          onLoadedMetadata={handleLoadedMetadata}
-          onClick={handleTap}
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div
           style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             width: '100%',
-            height: '100%',
-            maxWidth: '100vw',
-            maxHeight: '100vh',
-            objectFit: 'contain',
-            background: '#000',
-            display: 'block',
           }}
-        />
-      ) : (
-        <iframe
-          src={video.video_url}
-          width="100%"
-          height="360"
-          allowFullScreen
-          className="w-full max-w-lg md:max-w-xl lg:max-w-2xl rounded shadow-lg video-iframe"
-          title={video.title}
-          style={{
-            border: 'none',
-            width: '100%',
-            height: 'calc(100vw * 9 / 16)', // 16:9比率でSP/PC両対応
-            overflow: 'hidden',
-            display: 'block',
-          }}
-          scrolling="no"
-        />
-      )}
+        >
+          {video.video_url.endsWith('.mp4') ? (
+            <video
+              src={video.video_url}
+              crossOrigin="anonymous"
+              controls
+              autoPlay
+              muted
+              playsInline
+              ref={videoRef}
+              onLoadedMetadata={handleLoadedMetadata}
+              onClick={handleTap}
+              style={{
+                width: '100%',
+                height: '100%',
+                maxWidth: '100vw',
+                maxHeight: '100vh',
+                objectFit: 'contain',
+                background: '#000',
+                display: 'block',
+              }}
+            />
+          ) : (
+            <iframe
+              src={video.video_url}
+              width="100%"
+              height="360"
+              allowFullScreen
+              className="w-full max-w-lg md:max-w-xl lg:max-w-2xl rounded shadow-lg video-iframe"
+              title={video.title}
+              style={{
+                border: 'none',
+                width: '100%',
+                height: 'calc(100vw * 9 / 16)', // 16:9比率でSP/PC両対応
+                overflow: 'hidden',
+                display: 'block',
+              }}
+              scrolling="no"
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 }
