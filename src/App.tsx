@@ -1,11 +1,11 @@
-import Header from './components/Header'
-import OkaZoooLogo from './components/OkaZoooLogo'
-import Main from './components/Main'
+import Header from './components/Header/Header'
+import OkaZoooLogo from './components/OkaZoooLogo/OkaZoooLogo'
+import Main from './components/Main/Main'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { useState } from 'react';
-import TutorialPopup from './components/TutorialPopup';
-import VideoSwiper from './components/VideoSwiper';
+import TutorialPopup from './components/TutorialPopup/TutorialPopup';
+import VideoSwiper from './components/VideoSwiper/VideoSwiper';
 
 function App() {
   const [showTutorial, setShowTutorial] = useState(false);

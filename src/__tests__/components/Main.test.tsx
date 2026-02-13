@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render } from '@testing-library/react'
-import Main from '../../components/Main'
+import Main from '../../components/Main/Main'
 
 describe('Main コンポーネント', () => {
   it('コンポーネントがレンダリングされること', () => {
