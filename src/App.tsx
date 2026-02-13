@@ -4,16 +4,13 @@ import { getAllVideos } from './lib/supabase';
 
 function App() {
   const [videoIndex, setVideoIndex] = useState(0);
-  const [videos, setVideos] = useState<{id: string; title: string; url: string;}[]>([]);
+  const [videos, setVideos] = useState<{id: string; title: string; url: string;}[] | null>(null);
+  // ↑ null = ローディング中、[] = 取得失敗、Array = 取得成功
 
   useEffect(() => {
     getAllVideos()
       .then((result) => {
-        if (result && result.data) {
-          setVideos(result.data);
-        } else {
-          setVideos([]);
-        }
+        setVideos(result?.data ?? []);
       })
       .catch(() => {
         setVideos([]);
@@ -35,11 +32,14 @@ function App() {
         overflow: 'hidden',
       }}
     >
-      <VideoSwiper
-        videos={videos}
-        onSlideChange={setVideoIndex}
-        className="w-full h-full"
-      />
+      {/* ★ videos が null（ローディング中）の間は VideoSwiper をマウントしない */}
+      {videos === null ? null : (
+        <VideoSwiper
+          videos={videos}
+          onSlideChange={setVideoIndex}
+          className="w-full h-full"
+        />
+      )}
     </div>
   );
 }
