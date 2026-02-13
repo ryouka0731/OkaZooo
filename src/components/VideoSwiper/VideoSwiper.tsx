@@ -63,7 +63,7 @@ export default function VideoSwiper({ videos, onSlideChange, slidesPerView = 1, 
     };
   }, [videos]);
 
-  // PC時は全画面化＋マウスホイール切り替え
+  // PC時は全画面化＋マウスホイール切り替え（縦方向のみ対応、横スクロール無視）
   useEffect(() => {
     if (!isPc || !swiperRef.current) return;
     const container = containerRef.current;
@@ -71,6 +71,8 @@ export default function VideoSwiper({ videos, onSlideChange, slidesPerView = 1, 
     const swiper = swiperRef.current.swiper;
     const handleWheel = (e: WheelEvent) => {
       if (!swiper) return;
+      // 横スクロールは無視
+      if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
       if (e.deltaY > 0) {
         // 次へ（端でループしない）
         if (swiper.activeIndex < videos.length - 1) {
@@ -92,13 +94,14 @@ export default function VideoSwiper({ videos, onSlideChange, slidesPerView = 1, 
   return (
     <div
       ref={containerRef}
-      className={isPc ? `fixed inset-0 z-50 bg-black flex items-center justify-center video-swiper-pc ${className}` : `w-full max-w-lg md:max-w-xl lg:max-w-2xl mx-auto video-swiper-wrapper ${className}`}
-      style={isPc ? { width: '100vw', height: '100vh', overflow: 'hidden', display: 'flex' } : { width: '100%', height: '100%', overflow: 'hidden', display: 'block' }}
+      className={isPc ? `fixed inset-0 z-50 bg-black flex flex-col items-center justify-center video-swiper-pc ${className}` : `w-full max-w-lg md:max-w-xl lg:max-w-2xl mx-auto video-swiper-wrapper ${className}`}
+      style={isPc ? { width: '100vw', height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' } : { width: '100%', height: '100%', overflow: 'hidden', display: 'block' }}
     >
       <Swiper
         modules={[Virtual]}
         virtual
         slidesPerView={slidesPerView}
+        direction="vertical"
         onSwiper={swiper => (swiperRef.current = { swiper })}
         onSlideChange={(swiper) => {
           // スワイプ時プリロード
