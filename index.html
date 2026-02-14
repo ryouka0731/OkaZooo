@@ -2,13 +2,22 @@
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./src/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Title</title>
-    <link rel="manifest" href="./public/manifest.json" />
-    <meta name="theme-color" content="#00bcd4" />
+    <title>OkaZooo</title>
+    <meta name="description" content="OkaZooo - おかあさんといっしょの動画アプリ" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#e91e8c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="OkaZooo" />
     <style>
-      html, body, #root {
+      html,
+      body,
+      #root {
         margin: 0;
         padding: 0;
         width: 100%;
@@ -20,10 +29,11 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           // ★ Viteビルド後はpublic/の中身がルートに展開されるので/service-worker.js
-          navigator.serviceWorker.register('/service-worker.js')
-            .then(reg => console.log('[SW] registered:', reg.scope))
-            .catch(err => console.warn('[SW] registration failed:', err));
-        });
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .then((reg) => console.log('[SW] registered:', reg.scope))
+            .catch((err) => console.warn('[SW] registration failed:', err))
+        })
       }
     </script>
   </head>
