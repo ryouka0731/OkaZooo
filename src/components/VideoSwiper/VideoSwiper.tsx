@@ -346,6 +346,51 @@ function VideoSlide({
               </div>
             </div>
           )}
+
+          {/* 操作案内 — 下部の黒余白に表示 (PC: スクロール/スワイプ, SP縦: スワイプ, SP横: 非表示) */}
+          {isActive && (windowHeight > windowWidth || isPc) && (
+            <div
+              className="swipe-guide"
+              style={{
+                position: 'absolute',
+                bottom: isPc ? Math.max(8, topMargin - 36) : Math.max(8, topMargin - 32),
+                left: 0,
+                right: 0,
+                zIndex: 10,
+                pointerEvents: 'none',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '5px 14px',
+                  borderRadius: 20,
+                  background: 'rgba(255,255,255,0.06)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  fontSize: isPc ? 12 : 11,
+                  color: 'rgba(255,255,255,0.5)',
+                  fontFamily: "'Roboto', sans-serif",
+                  letterSpacing: '0.02em',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                <span style={{ fontSize: isPc ? 14 : 12 }}>⬆️⬇️</span>
+                <span>
+                  {isPc
+                    ? 'スクロール or スワイプで次の動画へ'
+                    : 'スワイプで次の動画へ'
+                  }
+                </span>
+              </div>
+            </div>
+          )}
     </div>
   );
 }
