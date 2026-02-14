@@ -99,7 +99,6 @@ export default function VideoSwiper({
     });
   };
 
-
   // プリロード
   useEffect(() => {
     const preloadIndex = activeIndex + 1;
@@ -189,7 +188,6 @@ export default function VideoSwiper({
           <SwiperSlide key={video.id} virtualIndex={idx}>
             <VideoSlide
               video={video}
-              index={idx}
               mediaRef={(el) => (prevMediaRefs.current[idx] = el)}
               isActive={activeIndex === idx}
             />
@@ -202,12 +200,10 @@ export default function VideoSwiper({
 
 function VideoSlide({
   video,
-  index,
   mediaRef,
   isActive,
 }: {
   video: VideoData;
-  index: number;
   mediaRef?: (el: HTMLVideoElement | HTMLIFrameElement | null) => void;
   isActive?: boolean;
 }) {
@@ -215,11 +211,11 @@ function VideoSlide({
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   // FANZAの litevideo ページレイアウト:
-  // ヘッダー(~35px) + 動画(720x480 = 3:2) + コントロール(~50px) + 余白
-  // → ページ全体の高さ ≈ 動画幅 × 0.667 + 100px
+  // ヘッダー(~20px) + 動画(720x480 = 3:2) + コントロール(~20px)
+  // → ページ全体の高さ ≈ 動画幅 × 0.667 + 40px
   // 画面高さに全て収めるために、iframeの幅を制限する:
   // maxWidth = (screenHeight - overhead) × (720/480)
-  const PAGE_OVERHEAD = 40; // ヘッダー + コントロール + パディング
+  const PAGE_OVERHEAD = 40;
   const VIDEO_RATIO = 720 / 480; // 3:2 = 1.5
   const maxIframeWidth = Math.floor((windowHeight - PAGE_OVERHEAD) * VIDEO_RATIO);
   // 画面幅より小さければその値を使用、そうでなければ画面幅
