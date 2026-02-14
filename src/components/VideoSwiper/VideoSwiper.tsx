@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/virtual";
 import { Virtual } from "swiper/modules";
 import { useVideoControl } from "../../hooks/useVideoControl";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 interface VideoData {
   id: string;
@@ -150,16 +151,11 @@ export default function VideoSwiper({
   return (
     <div
       ref={containerRef}
-      className={
-        isPc
-          ? `fixed inset-0 z-50 bg-black flex flex-col items-center justify-center video-swiper-pc ${className}`
-          : `w-full max-w-lg md:max-w-xl lg:max-w-2xl mx-auto video-swiper-wrapper ${className}`
-      }
-      style={
-        isPc
-          ? { width: '100vw', height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }
-          : { width: '100%', height: '100%', overflow: 'hidden', display: 'block' }
-      }
+      className={`fixed inset-0 z-50 bg-black flex flex-col items-center justify-center overflow-hidden ${className}`}
+      style={{
+        margin: 0,
+        padding: 0,
+      }}
     >
       <Swiper
         modules={[Virtual]}
@@ -187,8 +183,7 @@ export default function VideoSwiper({
 
           if (onSlideChange) onSlideChange(swiper.activeIndex);
         }}
-        className={isPc ? 'w-full h-full video-swiper-inner' : 'w-full h-full'}
-        style={isPc ? { width: '100vw', height: '100vh' } : { width: '100%', height: '100%' }}
+        className="w-full h-full video-swiper-inner bg-black"
       >
         {videos.map((video, idx) => (
           <SwiperSlide key={video.id} virtualIndex={idx}>
@@ -217,6 +212,18 @@ function VideoSlide({
   isActive?: boolean;
 }) {
   const { videoRef, handleLoadedMetadata, handleTap } = useVideoControl({ videoUrl: video.video_url });
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
+
+  // FANZAの litevideo ページレイアウト:
+  // ヘッダー(~35px) + 動画(720x480 = 3:2) + コントロール(~50px) + 余白
+  // → ページ全体の高さ ≈ 動画幅 × 0.667 + 100px
+  // 画面高さに全て収めるために、iframeの幅を制限する:
+  // maxWidth = (screenHeight - overhead) × (720/480)
+  const PAGE_OVERHEAD = 40; // ヘッダー + コントロール + パディング
+  const VIDEO_RATIO = 720 / 480; // 3:2 = 1.5
+  const maxIframeWidth = Math.floor((windowHeight - PAGE_OVERHEAD) * VIDEO_RATIO);
+  // 画面幅より小さければその値を使用、そうでなければ画面幅
+  const iframeWidth = Math.min(windowWidth, maxIframeWidth);
 
   function isValidVideoUrl(url: any): boolean {
     return typeof url === 'string' && url.startsWith('http');
@@ -230,28 +237,19 @@ function VideoSlide({
 
   return (
     <div
-      className="flex flex-col items-center p-4 md:p-6 lg:p-8 video-slide-outer justify-center"
+      className="video-slide-outer bg-black"
       style={{
         width: '100%',
         height: '100%',
+        position: 'relative',
         overflow: 'hidden',
-        boxSizing: 'border-box',
+        margin: 0,
+        padding: 0,
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
           {video.video_url.endsWith('.mp4') ? (
             <video
               src={video.video_url}
@@ -268,37 +266,43 @@ function VideoSlide({
               onClick={handleTap}
               loop={isActive}
               style={{
-                width: '100%',
-                height: '100%',
-                maxWidth: '100vw',
-                maxHeight: '100vh',
+                maxWidth: '100%',
+                maxHeight: '100%',
                 objectFit: 'contain',
                 background: '#000',
                 display: 'block',
               }}
             />
           ) : (
-            <iframe
-              src={isActive ? video.video_url : undefined}
-              width="100%"
-              allowFullScreen
-              className="w-full max-w-lg md:max-w-xl lg:max-w-2xl rounded shadow-lg video-iframe"
-              title={video.title}
-              ref={(el) => {
-                if (mediaRef) mediaRef(el);
-              }}
+            <div
               style={{
-                border: 'none',
-                width: '100%',
-                height: 'calc(100vw * 9 / 16)',
-                overflow: 'hidden',
-                display: 'block',
+                width: iframeWidth,
+                height: '100%',
+                position: 'relative',
+                flexShrink: 0,
               }}
-              scrolling="no"
-            />
+            >
+              <iframe
+                src={isActive ? video.video_url : undefined}
+                allowFullScreen
+                className="video-iframe"
+                title={video.title}
+                ref={(el) => {
+                  if (mediaRef) mediaRef(el);
+                }}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  border: 'none',
+                  width: '100%',
+                  height: '100%',
+                  display: 'block',
+                }}
+                scrolling="no"
+              />
+            </div>
           )}
-        </div>
-      </div>
     </div>
   );
 }

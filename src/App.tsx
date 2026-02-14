@@ -4,8 +4,12 @@ import { getAllVideos } from './lib/supabase';
 
 function App() {
   const [videoIndex, setVideoIndex] = useState(0);
-  const [videos, setVideos] = useState<{id: string; title: string; url: string;}[] | null>(null);
+  const [videos, setVideos] = useState<any[] | null>(null);
   // ↑ null = ローディング中、[] = 取得失敗、Array = 取得成功
+  // 本来は VideoData 型をちゃんと定義すべきだが、一旦 any で通して VideoSwiper 側でキャストさせるか、
+  // あるいはここで interface を定義する。
+  // VideoSwiper 側の VideoData 定義と合わせるのがベスト。
+
 
   useEffect(() => {
     getAllVideos()
@@ -21,7 +25,7 @@ function App() {
     <div
       style={{
         width: '100vw',
-        height: '100vh',
+        height: '100dvh', // アドレスバー対策
         position: 'fixed',
         top: 0,
         left: 0,
