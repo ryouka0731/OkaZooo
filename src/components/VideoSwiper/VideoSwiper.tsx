@@ -235,6 +235,9 @@ function VideoSlide({
     }
   }, [video.video_url]);
 
+  // iframeの上部の余白を計算（案内の位置調整に使用）
+  const topMargin = Math.max(0, Math.floor((windowHeight - iframeHeight) / 2));
+
   return (
     <div
       className="video-slide-outer bg-black"
@@ -301,6 +304,46 @@ function VideoSlide({
                 }}
                 scrolling="no"
               />
+            </div>
+          )}
+
+          {/* タイトルタップ案内 — 上部の黒余白に表示 */}
+          {isActive && !video.video_url.endsWith('.mp4') && (
+            <div
+              className="title-tap-guide"
+              style={{
+                position: 'absolute',
+                top: isPc ? Math.max(8, topMargin - 36) : Math.max(8, topMargin - 32),
+                left: 0,
+                right: 0,
+                zIndex: 10,
+                pointerEvents: 'none',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '5px 14px',
+                  borderRadius: 20,
+                  background: 'rgba(255,105,180,0.15)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255,105,180,0.25)',
+                  fontSize: isPc ? 13 : 11,
+                  color: 'rgba(255,255,255,0.85)',
+                  fontFamily: "'Roboto', sans-serif",
+                  letterSpacing: '0.02em',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                <span style={{ fontSize: isPc ? 15 : 13 }}>👇️</span>
+                <span>動画上部の<strong style={{ color: '#FF69B4' }}>タイトル</strong>をタップで作品ページへ</span>
+              </div>
             </div>
           )}
     </div>
