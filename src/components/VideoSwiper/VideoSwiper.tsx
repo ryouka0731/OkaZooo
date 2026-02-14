@@ -391,6 +391,91 @@ function VideoSlide({
               </div>
             </div>
           )}
+
+          {/* 横持ち用ガイド — 左脇: 商品ページ案内、右脇: スワイプ案内（縦書き） */}
+          {isActive && !isPc && windowWidth >= windowHeight && (
+            <>
+              {/* 左脇: タイトルタップで作品ページへ */}
+              {!video.video_url.endsWith('.mp4') && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: 6,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    zIndex: 10,
+                    pointerEvents: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <div
+                    style={{
+                      writingMode: 'vertical-rl',
+                      textOrientation: 'mixed',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 4,
+                      padding: '10px 6px',
+                      borderRadius: 14,
+                      background: 'rgba(255,105,180,0.12)',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
+                      border: '1px solid rgba(255,105,180,0.2)',
+                      fontSize: 10,
+                      color: 'rgba(255,255,255,0.75)',
+                      fontFamily: "'Roboto', sans-serif",
+                      letterSpacing: '0.08em',
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    <span style={{ fontSize: 12 }}>👇️</span>
+                    <span><strong style={{ color: '#FF69B4' }}>タイトル</strong>タップで作品ページへ</span>
+                  </div>
+                </div>
+              )}
+
+              {/* 右脇: スワイプ案内 */}
+              <div
+                style={{
+                  position: 'absolute',
+                  right: 6,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 10,
+                  pointerEvents: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    writingMode: 'vertical-rl',
+                    textOrientation: 'mixed',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    padding: '10px 6px',
+                    borderRadius: 14,
+                    background: 'rgba(255,255,255,0.05)',
+                    backdropFilter: 'blur(8px)',
+                    WebkitBackdropFilter: 'blur(8px)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    fontSize: 10,
+                    color: 'rgba(255,255,255,0.45)',
+                    fontFamily: "'Roboto', sans-serif",
+                    letterSpacing: '0.08em',
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <span style={{ fontSize: 11 }}>⬆️⬇️</span>
+                  <span>スワイプで次の動画へ</span>
+                </div>
+              </div>
+            </>
+          )}
     </div>
   );
 }
