@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import VideoSwiper from './components/VideoSwiper/VideoSwiper';
+import InstallPrompt from './components/InstallPrompt/InstallPrompt';
 import { getAllVideos } from './lib/supabase';
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           />
         )}
       </div>
+      <InstallPrompt />
     </>
   );
 }

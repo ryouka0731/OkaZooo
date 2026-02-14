@@ -86,3 +86,33 @@ body {
   }
 }
 
+/* Install Prompt バナーアニメーション */
+@keyframes installPromptSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes installPromptSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+.install-prompt-enter {
+  animation: installPromptSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.install-prompt-closing {
+  animation: installPromptSlideOut 0.4s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
