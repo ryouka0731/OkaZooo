@@ -218,8 +218,9 @@ function VideoSlide({
   const PAGE_OVERHEAD = 40;
   const VIDEO_RATIO = 720 / 480; // 3:2 = 1.5
   const maxIframeWidth = Math.floor((windowHeight - PAGE_OVERHEAD) * VIDEO_RATIO);
-  // 画面幅より小さければその値を使用、そうでなければ画面幅
   const iframeWidth = Math.min(windowWidth, maxIframeWidth);
+  // 縦置き時に上下中央配置するため、高さもコンテンツに合わせて制限
+  const iframeHeight = Math.min(windowHeight, Math.floor(iframeWidth / VIDEO_RATIO + PAGE_OVERHEAD));
 
   function isValidVideoUrl(url: any): boolean {
     return typeof url === 'string' && url.startsWith('http');
@@ -273,7 +274,7 @@ function VideoSlide({
             <div
               style={{
                 width: iframeWidth,
-                height: '100%',
+                height: iframeHeight,
                 position: 'relative',
                 flexShrink: 0,
               }}
