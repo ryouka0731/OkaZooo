@@ -116,10 +116,9 @@ export default function VideoSwiper({
     };
   }, [activeIndex, videos]);
 
-  // PCホイール操作
+  // PCホイール操作（windowレベルでキャプチャ、iframe上でも動作）
   useEffect(() => {
-    if (!isPc || !containerRef.current) return;
-    const container = containerRef.current;
+    if (!isPc) return;
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
@@ -144,9 +143,9 @@ export default function VideoSwiper({
       }
     };
 
-    // capture: true でiframeに届く前にイベントをキャッチ
-    container.addEventListener('wheel', handleWheel, { passive: false, capture: true });
-    return () => container.removeEventListener('wheel', handleWheel, { capture: true });
+    // windowレベルのcapture phaseでiframe上でもホイールをキャッチ
+    window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+    return () => window.removeEventListener('wheel', handleWheel, { capture: true });
   }, [isPc, videos.length, onSlideChange]);
 
   return (
@@ -218,12 +217,12 @@ function VideoSlide({
   // → ページ全体の高さ ≈ 動画幅 × 0.667 + 40px
   // 画面高さに全て収めるために、iframeの幅を制限する:
   // maxWidth = (screenHeight - overhead) × (720/480)
-  const PAGE_OVERHEAD = 40;
+  const PAGE_OVERHEAD = 45;
   const VIDEO_RATIO = 720 / 480; // 3:2 = 1.5
-  const maxIframeWidth = Math.floor((windowHeight - PAGE_OVERHEAD) * VIDEO_RATIO);
-  const iframeWidth = Math.min(windowWidth, maxIframeWidth);
-  // PCでは上下中央配置のため高さを画面の85%に制限
+  // PCでは上下中央配置のため高さを制限し、幅もそこから逆算
   const maxHeight = isPc ? Math.floor(windowHeight * 0.50) : windowHeight;
+  const maxIframeWidth = Math.floor((maxHeight - PAGE_OVERHEAD) * VIDEO_RATIO);
+  const iframeWidth = Math.min(windowWidth, maxIframeWidth);
   const iframeHeight = Math.min(maxHeight, Math.floor(iframeWidth / VIDEO_RATIO + PAGE_OVERHEAD));
 
   function isValidVideoUrl(url: any): boolean {
