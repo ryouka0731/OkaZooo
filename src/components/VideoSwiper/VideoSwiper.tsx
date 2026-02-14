@@ -123,6 +123,7 @@ export default function VideoSwiper({
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
+      e.stopPropagation();
       const swiper = swiperRef.current?.swiper;
       if (!swiper) return;
       if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
@@ -143,8 +144,9 @@ export default function VideoSwiper({
       }
     };
 
-    container.addEventListener('wheel', handleWheel, { passive: false });
-    return () => container.removeEventListener('wheel', handleWheel);
+    // capture: true でiframeに届く前にイベントをキャッチ
+    container.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+    return () => container.removeEventListener('wheel', handleWheel, { capture: true });
   }, [isPc, videos.length, onSlideChange]);
 
   return (
@@ -209,6 +211,7 @@ function VideoSlide({
 }) {
   const { videoRef, handleLoadedMetadata, handleTap } = useVideoControl({ videoUrl: video.video_url });
   const { width: windowWidth, height: windowHeight } = useWindowSize();
+  const isPc = typeof window !== 'undefined' && window.innerWidth >= 1024;
 
   // FANZAの litevideo ページレイアウト:
   // ヘッダー(~20px) + 動画(720x480 = 3:2) + コントロール(~20px)
@@ -219,8 +222,9 @@ function VideoSlide({
   const VIDEO_RATIO = 720 / 480; // 3:2 = 1.5
   const maxIframeWidth = Math.floor((windowHeight - PAGE_OVERHEAD) * VIDEO_RATIO);
   const iframeWidth = Math.min(windowWidth, maxIframeWidth);
-  // 縦置き時に上下中央配置するため、高さもコンテンツに合わせて制限
-  const iframeHeight = Math.min(windowHeight, Math.floor(iframeWidth / VIDEO_RATIO + PAGE_OVERHEAD));
+  // PCでは上下中央配置のため高さを画面の85%に制限
+  const maxHeight = isPc ? Math.floor(windowHeight * 0.50) : windowHeight;
+  const iframeHeight = Math.min(maxHeight, Math.floor(iframeWidth / VIDEO_RATIO + PAGE_OVERHEAD));
 
   function isValidVideoUrl(url: any): boolean {
     return typeof url === 'string' && url.startsWith('http');
