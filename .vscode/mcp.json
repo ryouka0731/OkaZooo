@@ -1,0 +1,56 @@
+{
+  "servers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "type": "stdio"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@0.0.38"],
+      "type": "stdio",
+      "alwaysAllow": [
+        "browser_take_screenshot",
+        "browser_close",
+        "browser_snapshot"
+      ]
+    },
+    "github": {
+      "url": "https://api.github.com/mcp",
+      "type": "sse"
+    },
+    "sentry": {
+      "url": "https://mcp.sentry.dev/sse",
+      "type": "sse"
+    },
+    "n8n-mcp": {
+      "command": "npx",
+      "args": ["-y", "n8n-mcp@2.12.2"],
+      "type": "stdio",
+      "env": {
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true"
+      }
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena-mcp-server",
+        "--context",
+        "ide-assistant"
+      ],
+      "type": "stdio",
+      "env": {
+        "SERENA_LOG_LEVEL": "info"
+      }
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"],
+      "type": "stdio"
+    }
+  }
+}
