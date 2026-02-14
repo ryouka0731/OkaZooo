@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import VideoSwiper from './components/VideoSwiper/VideoSwiper';
 import { getAllVideos } from './lib/supabase';
 
@@ -25,6 +26,7 @@ function App() {
   return (
     <>
       <Analytics />
+      <SpeedInsights />
       <div
         style={{
           width: '100vw',
