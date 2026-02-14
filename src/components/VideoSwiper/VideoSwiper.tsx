@@ -217,7 +217,7 @@ function VideoSlide({
   // → ページ全体の高さ ≈ 動画幅 × 0.667 + 40px
   // 画面高さに全て収めるために、iframeの幅を制限する:
   // maxWidth = (screenHeight - overhead) × (720/480)
-  const PAGE_OVERHEAD = 45;
+  const PAGE_OVERHEAD = 50;
   const VIDEO_RATIO = 720 / 480; // 3:2 = 1.5
   // PCでは上下中央配置のため高さを制限し、幅もそこから逆算
   const maxHeight = isPc ? Math.floor(windowHeight * 0.50) : windowHeight;
