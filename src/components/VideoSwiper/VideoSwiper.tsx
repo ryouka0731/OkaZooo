@@ -307,8 +307,8 @@ function VideoSlide({
             </div>
           )}
 
-          {/* タイトルタップ案内 — 上部の黒余白に表示 */}
-          {isActive && !video.video_url.endsWith('.mp4') && (
+          {/* タイトルタップ案内 — 上部の黒余白に表示（横持ち時は左脇に縦書きで表示するため非表示） */}
+          {isActive && !video.video_url.endsWith('.mp4') && (isPc || windowHeight > windowWidth) && (
             <div
               className="title-tap-guide"
               style={{
@@ -384,8 +384,8 @@ function VideoSlide({
                 <span style={{ fontSize: isPc ? 14 : 12 }}>⬆️⬇️</span>
                 <span>
                   {isPc
-                    ? 'スクロール or スワイプで次の動画へ'
-                    : 'スワイプで次の動画へ'
+                    ? 'マウスホイール操作 or 縦スワイプで次の動画へ'
+                    : '縦スワイプで次の動画へ'
                   }
                 </span>
               </div>
@@ -430,7 +430,7 @@ function VideoSlide({
                       lineHeight: 1.4,
                     }}
                   >
-                    <span style={{ fontSize: 12 }}>👇️</span>
+                    <span style={{ fontSize: 12 }}>↖️</span>
                     <span><strong style={{ color: '#FF69B4' }}>タイトル</strong>タップで作品ページへ</span>
                   </div>
                 </div>
@@ -470,8 +470,8 @@ function VideoSlide({
                     lineHeight: 1.4,
                   }}
                 >
-                  <span style={{ fontSize: 11 }}>⬆️⬇️</span>
-                  <span>スワイプで次の動画へ</span>
+                  <span style={{ fontSize: 11 }}>⬅️➡️</span>
+                  <span>縦スワイプで次の動画へ</span>
                 </div>
               </div>
             </>
